@@ -20,7 +20,7 @@ Bu proje, Docker içinde çalışan üç düğümlü bir ROS 2 Humble uygulamas�
 
 - **command_server**
   - Service: `/compute_command`
-  - Özel servis türü: `command_server_pkg/srv/ComputeCommand`
+  - Özel servis türü: `command_server_interfaces/srv/ComputeCommand`
     - `float64 input`
     - `---`
     - `string output`
@@ -40,8 +40,11 @@ project_root /
     sensor_publisher_pkg /
     data_processor_pkg /
     command_server_pkg /
+    command_server_interfaces /
+    my_project /
   SSF_HASH.txt
   README.md
+  ssf.sh
 ```
 
 ### Docker ile Çalıştırma
@@ -49,29 +52,32 @@ project_root /
 1. İmajı derle:
 
 ```bash
-cd "/home/selamicetin/Masaüstü/Robotik Dersi Odev-3"
-docker build -t myrosapp .
+git clone https://github.com/Selami7321/env3_Robotik.git
+cd env3_Robotik
+sudo docker build -t myrosapp .
 ```
 
 2. Konteyneri çalıştır:
 
 ```bash
-docker run --rm myrosapp
+sudo docker run --rm --name rosapp myrosapp
 ```
 
-3. Ayrı bir terminalde çalışan konteyner ID'sini al ve içine gir:
+3. Ayrı bir terminalde çalışan konteynere gir:
 
 ```bash
-docker ps
-docker exec -it <container_id> bash
+sudo docker ps                  # container_id'yi not edin
+sudo docker exec -it <container_id> bash
 ```
 
-4. Konteyner içinde test komutları:
+4. Konteyner içinde ROS ortamını yükleyin ve test komutlarını çalıştırın:
 
 ```bash
+source /opt/ros/humble/setup.bash
+source /ws/install/setup.bash
 ros2 topic list
 ros2 topic echo /processed_value
-ros2 service call /compute_command "input: 12.5"
+ros2 service call /compute_command command_server_interfaces/srv/ComputeCommand "{input: 12.5}"
 ```
 
 ### Notlar
@@ -90,35 +96,37 @@ ros2 service call /compute_command "input: 12.5"
 1. Depoyu klonlayın:
 
 ```bash
-git clone https://github.com/<kullanici-adi>/<repo-adi>.git
-cd <repo-adi>
+git clone https://github.com/Selami7321/env3_Robotik.git
+cd env3_Robotik
 ```
 
 2. Docker imajını oluşturun:
 
 ```bash
-docker build -t myrosapp .
+sudo docker build -t myrosapp .
 ```
 
 3. Konteyneri çalıştırın:
 
 ```bash
-docker run --rm myrosapp
+sudo docker run --rm --name rosapp myrosapp
 ```
 
 4. Ayrı bir terminalde çalışan konteynere girin:
 
 ```bash
-docker ps                  # container_id'yi not edin
-docker exec -it <container_id> bash
+sudo docker ps                  # container_id'yi not edin
+sudo docker exec -it <container_id> bash
 ```
 
-5. Konteyner içinde doğrulama komutları:
+5. Konteyner içinde ROS ortamını yükleyin ve doğrulama komutlarını çalıştırın:
 
 ```bash
+source /opt/ros/humble/setup.bash
+source /ws/install/setup.bash
 ros2 topic list
 ros2 topic echo /processed_value
-ros2 service call /compute_command "input: 12.5"
+ros2 service call /compute_command command_server_interfaces/srv/ComputeCommand "{input: 12.5}"
 ```
 
 ### Bu Projeyi Kendi GitHub Hesabınıza Taşımak (Terminal ile)
