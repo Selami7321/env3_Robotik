@@ -134,7 +134,7 @@ ros2 service call /compute_command command_server_interfaces/srv/ComputeCommand 
 1. Bu projeyi klonlayın:
 
 ```bash
-git clone https://github.com/<orijinal-sahip>/<orijinal-repo>.git
+git clone https://github.com/Selami7321/env3_Robotik.git
 cd <orijinal-repo>
 ```
 
