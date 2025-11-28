@@ -135,7 +135,7 @@ ros2 service call /compute_command command_server_interfaces/srv/ComputeCommand 
 
 ```bash
 git clone https://github.com/Selami7321/env3_Robotik.git
-cd <orijinal-repo>
+cd env3_Robotik
 ```
 
 2. Mevcut `origin` remote'unu kaldırın:
